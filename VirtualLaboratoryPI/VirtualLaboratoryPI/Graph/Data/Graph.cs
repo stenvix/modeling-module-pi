@@ -7,6 +7,5 @@ using System.Threading.Tasks;
 
 namespace VirtualLaboratoryPI.Graph.Data
 {
-    public class GraphExample : BidirectionalGraph<DataVertex, DataEdge> { };
-      
+    public class GraphExample : BidirectionalGraph<DataVertex, DataEdge> { };  
 }

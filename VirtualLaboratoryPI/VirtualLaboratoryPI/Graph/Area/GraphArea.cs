@@ -9,5 +9,9 @@ using VirtualLaboratoryPI.Graph.Data;
 
 namespace VirtualLaboratoryPI.Graph.Area
 {
-    public class GraphAreaExample : GraphArea<DataVertex, DataEdge, BidirectionalGraph<DataVertex, DataEdge>> { }
+    public class GraphAreaExample : GraphArea<DataVertex, DataEdge, BidirectionalGraph<DataVertex, DataEdge>> {
+        public GraphAreaExample() {
+            ControlFactory = new ElementsFactory(this);
+         }
+    }
 }

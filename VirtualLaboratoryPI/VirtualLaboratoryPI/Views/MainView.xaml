@@ -28,7 +28,15 @@
         <StackPanel Height="335" Margin="10,10,10,0" VerticalAlignment="Top" Grid.RowSpan="3" Grid.Row="1"/>
         <Button x:Name="button" Content="Button" Margin="40,40,40,40" Click="button_Click"/>
         <controls:ZoomControl x:Name="zoomctrl" Grid.Row="1" Grid.ColumnSpan="4" Grid.Column="1" Margin="10" Grid.RowSpan="3" BorderThickness="1" BorderBrush="#FF382D2D">
-            <models:GraphAreaExample x:Name="Area"/>
+            <models:GraphAreaExample x:Name="Area">
+                <models:GraphAreaExample.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="/Templates/ThemedGraphXTemplates.xaml" />
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </models:GraphAreaExample.Resources>
+            </models:GraphAreaExample>
         </controls:ZoomControl>
     </Grid>
 </Window>

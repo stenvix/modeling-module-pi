@@ -14,6 +14,11 @@ namespace VirtualLaboratoryPI.Graph.Data
         /// </summary>
         public string Text { get; set; }
 
+        public string Name { get {
+                return "NAme";
+            } set { }
+        }
+
         #region Calculated or static props
 
         public override string ToString()
