@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Views;
+using VirtualLaboratoryPI.ViewModels;
+using GalaSoft.MvvmLight;
+
 namespace VirtualLaboratoryPI
 {
     /// <summary>
@@ -19,19 +22,28 @@ namespace VirtualLaboratoryPI
     /// </summary>
     public partial class LoginView : Window, IDisposable
     {
+        private LoginViewModel ViewModel { get; set; }
         public LoginView()
-        {            
+        {
             InitializeComponent();
+            ViewModel = (LoginViewModel)DataContext;
         }
 
         public void Dispose()
         {
-            return;
+            if (ViewModel != null)
+            {
+                ViewModel.Dispose();
+            }
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void SignIn(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
+            if (ViewModel.SignIn(loginBox.Text, passwordBox.Password))
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
         }
     }
 }

@@ -1,22 +1,23 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System;
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace VirtualLaboratoryPI.ViewModels
 {
-    public class LoginViewModel: ViewModelBase
+    public class LoginViewModel : ViewModelBase, IDisposable
     {
-        public string Login { get; set; }
-        public string Password { get; set; }
-
-        public RelayCommand SignInCommand {
-            get
-            {
-                return new RelayCommand(SignIn);
-            }
+        public void Dispose()
+        {
+            return;
         }
 
-        private void SignIn()
-        {        }
+        public bool SignIn(string login, string password)
+        {
+            return (login == "root" && password == "root");           
+        }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VirtualLaboratoryPI"
         xmlns:ViewModels ="clr-namespace:VirtualLaboratoryPI.ViewModels"
         mc:Ignorable="d"
-        Title="Віртуальна лабораторія ПІ - Вхід" Height="250" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closing="Window_Closing"
+        Title="Віртуальна лабораторія ПІ - Вхід" Height="250" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         >
     <Window.DataContext>
         <ViewModels:LoginViewModel />
@@ -24,10 +24,10 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <TextBox x:Name="loginBox" Margin="10" Grid.Row="1" TextWrapping="Wrap" Grid.ColumnSpan="2" FontSize="14" VerticalContentAlignment="Center"/>
-        <PasswordBox x:Name="passwordBox" Margin="10" Grid.Row="3" Grid.ColumnSpan="2" FontSize="14" VerticalContentAlignment="Center"/>
+        <PasswordBox x:Name="passwordBox" Margin="10" Grid.Row="3" Grid.ColumnSpan="2" FontSize="14" VerticalContentAlignment="Center"></PasswordBox>
         <Label x:Name="loginLabel" Content="Логін" Margin="10,0" VerticalContentAlignment="Bottom" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"/>
         <Label x:Name="passwordLabel" Content="Пароль" Margin="10,0" VerticalContentAlignment="Bottom" Grid.Row="2" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"/>
-        <Button x:Name="button" Content="Ввійти" Margin="10,0,10,10" Grid.Row="4" Grid.Column="1" Command="{Binding SignInCommand }"/>
+        <Button x:Name="button" Content="Ввійти" Margin="10,0,10,10" Grid.Row="4" Grid.Column="1" Command="" Click="SignIn" />
         <Button x:Name="button1" Content="Реєстрація" Margin="10,0,10,10" Grid.Row="4"/>
 
     </Grid>

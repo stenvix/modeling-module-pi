@@ -4,9 +4,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VirtualLaboratoryPI"
+        xmlns:ViewModels="clr-namespace:VirtualLaboratoryPI.ViewModels"
+        xmlns:controls="http://schemas.panthernet.ru/graphx/"
+        xmlns:models="clr-namespace:VirtualLaboratoryPI.Graph.Area"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Віртуальна лабораторія ПІ - Головне вікно" Height="498" Width="800"
+        DataContext="{Binding MainViewModel , Source={StaticResource ViewModelLocator}}" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Menu VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <StackPanel Height="335" Margin="10,10,10,0" VerticalAlignment="Top" Grid.RowSpan="3" Grid.Row="1"/>
+        <Button x:Name="button" Content="Button" Margin="40,40,40,40" Click="button_Click"/>
+        <controls:ZoomControl x:Name="zoomctrl" Grid.Row="1" Grid.ColumnSpan="4" Grid.Column="1" Margin="10" Grid.RowSpan="3" BorderThickness="1" BorderBrush="#FF382D2D">
+            <models:GraphAreaExample x:Name="Area"/>
+        </controls:ZoomControl>
     </Grid>
 </Window>
