@@ -1,4 +1,5 @@
 ﻿using GraphX.Controls;
+using GraphX.PCL.Common.Models;
 using QuickGraph;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using VirtualLaboratoryPI.Graph.Data;
 
 namespace VirtualLaboratoryPI.Graph.Area
 {
-    public class GraphAreaExample : GraphArea<DataVertex, DataEdge, BidirectionalGraph<DataVertex, DataEdge>> {
+    public class GraphAreaExample : GraphArea<VertexBase, EdgeBase<VertexBase>, BidirectionalGraph<VertexBase, EdgeBase<VertexBase>>> {
         public GraphAreaExample() {
             ControlFactory = new ElementsFactory(this);
          }

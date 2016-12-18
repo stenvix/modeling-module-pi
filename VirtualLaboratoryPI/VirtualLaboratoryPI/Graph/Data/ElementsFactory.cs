@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using GraphX;
 using GraphX.Controls;
 using System.Windows;
+using VirtualLaboratoryPI.Graph.Data.Controls;
+using VirtualLaboratoryPI.Graph.Data.Vertex;
 
 namespace VirtualLaboratoryPI.Graph.Data
 {
@@ -27,8 +29,16 @@ namespace VirtualLaboratoryPI.Graph.Data
 
         public VertexControl CreateVertexControl(object vertexData)
         {
-            var type = vertexData.GetType();
-            return new PointControl(vertexData);
+            if (vertexData.GetType() == typeof(PointVertex))
+                return new PointControl(vertexData);
+
+            if (vertexData.GetType() == typeof(RhombVertex))
+                return new RhombControl(vertexData);
+
+            if (vertexData.GetType() == typeof(BlockVertex))
+                return new BlockControl(vertexData);
+
+            return new VertexControl(vertexData);
         }
     }
 }

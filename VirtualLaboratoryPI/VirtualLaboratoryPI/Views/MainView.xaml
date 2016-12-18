@@ -9,7 +9,7 @@
         xmlns:models="clr-namespace:VirtualLaboratoryPI.Graph.Area"
         mc:Ignorable="d"
         Title="Віртуальна лабораторія ПІ - Головне вікно" Height="498" Width="800"
-        DataContext="{Binding MainViewModel , Source={StaticResource ViewModelLocator}}" WindowStartupLocation="CenterScreen">
+        DataContext="{Binding MainViewModel , Source={StaticResource ViewModelLocator}}" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -25,9 +25,15 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Menu VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <StackPanel Height="335" Margin="10,10,10,0" VerticalAlignment="Top" Grid.RowSpan="3" Grid.Row="1"/>
-        <Button x:Name="button" Content="Button" Margin="40,40,40,40" Click="button_Click"/>
-        <controls:ZoomControl x:Name="zoomctrl" Grid.Row="1" Grid.ColumnSpan="4" Grid.Column="1" Margin="10" Grid.RowSpan="3" BorderThickness="1" BorderBrush="#FF382D2D">
+        <StackPanel Height="335" Margin="10,10,10,0" VerticalAlignment="Top" Grid.RowSpan="3" Grid.Row="1">
+            <ToggleButton x:Name="moveButton" Content="Рухати" Checked="toggleButton_checked" />
+            <ToggleButton x:Name="selectButton" Content="Зв'язок(Стрілки)" Checked="toggleButton_checked" />
+            <ToggleButton x:Name="deleteButton" Content="Видалити" Checked="toggleButton_checked" />
+            <ToggleButton x:Name="blockButton" Content="Блок"  Checked="toggleButton_checked"/>
+            <ToggleButton x:Name="pointButton" Content="Точка"  Checked="toggleButton_checked"/>
+            <ToggleButton x:Name="rhombButton" Content="Ромб"  Checked="toggleButton_checked"/>
+        </StackPanel>
+        <controls:ZoomControl x:Name="zoomctrl" Grid.ColumnSpan="4" Grid.Column="1" Margin="10,10,10,9.667" Grid.RowSpan="4" BorderThickness="1" BorderBrush="#FF382D2D">
             <models:GraphAreaExample x:Name="Area">
                 <models:GraphAreaExample.Resources>
                     <ResourceDictionary>
@@ -38,5 +44,7 @@
                 </models:GraphAreaExample.Resources>
             </models:GraphAreaExample>
         </controls:ZoomControl>
+        <Label Content="Текст блоку" Margin="0,0,0,42"></Label>
+        <TextBox x:Name="textBox" Margin="10,80,10,10" TextWrapping="Wrap" Text="{Binding Path=BlockText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>

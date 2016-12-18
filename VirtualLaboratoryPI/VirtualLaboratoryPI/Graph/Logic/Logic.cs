@@ -1,4 +1,5 @@
-﻿using GraphX.PCL.Logic.Models;
+﻿using GraphX.PCL.Common.Models;
+using GraphX.PCL.Logic.Models;
 using QuickGraph;
 using System;
 using System.Collections.Generic;
@@ -9,5 +10,5 @@ using VirtualLaboratoryPI.Graph.Data;
 
 namespace VirtualLaboratoryPI.Graph.Logic
 {
-    public class Logic : GXLogicCore<DataVertex, DataEdge, BidirectionalGraph<DataVertex, DataEdge>> { }
+    public class Logic : GXLogicCore<VertexBase, EdgeBase<VertexBase>, BidirectionalGraph<VertexBase, EdgeBase<VertexBase>>> { }
 }

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VirtualLaboratoryPI.Templates
+namespace VirtualLaboratoryPI.Graph.Data.Templates
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for BlockTemplate.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class BlockTemplate : UserControl
     {
-        public UserControl1()
+        public BlockTemplate()
         {
             InitializeComponent();
         }
