@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Arc_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Elements">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="body" Type="binary" MaxLength="3000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ModelingResult">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="score" Type="int" />
+          <Property Name="result_description" Type="int" />
+          <Property Name="source_modal_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="modeling_task_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ModelingTask">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="description" Type="text" Nullable="false" />
+          <Property Name="first_part" Type="text" />
+          <Property Name="middle_part" Type="text" />
+          <Property Name="last_part" Type="text" />
+          <Property Name="task_complex" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ModelingTestInput">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="input_modal" Type="binary" MaxLength="3000" Nullable="false" />
+          <Property Name="output_modal" Type="binary" MaxLength="3000" />
+          <Property Name="task_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SourceModal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Modal" Type="binary" MaxLength="3000" />
+        </EntityType>
+        <EntityType Name="StudyGroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" />
+          <Property Name="course" Type="int" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="user_type" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="group_id" Type="int" />
+        </EntityType>
+        <Association Name="FK_ModelingResult_ModelingTask">
+          <End Role="ModelingTask" Type="Self.ModelingTask" Multiplicity="1" />
+          <End Role="ModelingResult" Type="Self.ModelingResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModelingTask">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ModelingResult">
+              <PropertyRef Name="modeling_task_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModelingResult_SourceModal">
+          <End Role="SourceModal" Type="Self.SourceModal" Multiplicity="1" />
+          <End Role="ModelingResult" Type="Self.ModelingResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceModal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ModelingResult">
+              <PropertyRef Name="source_modal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModelingResult_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ModelingResult" Type="Self.ModelingResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ModelingResult">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModelingTestInput_ModelingTask">
+          <End Role="ModelingTask" Type="Self.ModelingTask" Multiplicity="1" />
+          <End Role="ModelingTestInput" Type="Self.ModelingTestInput" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModelingTask">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ModelingTestInput">
+              <PropertyRef Name="task_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_StudyGroup">
+          <End Role="StudyGroup" Type="Self.StudyGroup" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyGroup">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Arc_DBModelStoreContainer">
+          <EntitySet Name="Elements" EntityType="Self.Elements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModelingResult" EntityType="Self.ModelingResult" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModelingTask" EntityType="Self.ModelingTask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModelingTestInput" EntityType="Self.ModelingTestInput" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SourceModal" EntityType="Self.SourceModal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudyGroup" EntityType="Self.StudyGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ModelingResult_ModelingTask" Association="Self.FK_ModelingResult_ModelingTask">
+            <End Role="ModelingTask" EntitySet="ModelingTask" />
+            <End Role="ModelingResult" EntitySet="ModelingResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModelingResult_SourceModal" Association="Self.FK_ModelingResult_SourceModal">
+            <End Role="SourceModal" EntitySet="SourceModal" />
+            <End Role="ModelingResult" EntitySet="ModelingResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModelingResult_User" Association="Self.FK_ModelingResult_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ModelingResult" EntitySet="ModelingResult" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModelingTestInput_ModelingTask" Association="Self.FK_ModelingTestInput_ModelingTask">
+            <End Role="ModelingTask" EntitySet="ModelingTask" />
+            <End Role="ModelingTestInput" EntitySet="ModelingTestInput" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_StudyGroup" Association="Self.FK_User_StudyGroup">
+            <End Role="StudyGroup" EntitySet="StudyGroup" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Arc_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Element">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="body" Type="Binary" MaxLength="3000" FixedLength="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ModelingResult">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="score" Type="Int32" />
+          <Property Name="result_description" Type="Int32" />
+          <Property Name="source_modal_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="modeling_task_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ModelingTask" Relationship="Self.FK_ModelingResult_ModelingTask" FromRole="ModelingResult" ToRole="ModelingTask" />
+          <NavigationProperty Name="SourceModal" Relationship="Self.FK_ModelingResult_SourceModal" FromRole="ModelingResult" ToRole="SourceModal" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ModelingResult_User" FromRole="ModelingResult" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ModelingTask">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="first_part" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="middle_part" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="last_part" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="task_complex" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ModelingResults" Relationship="Self.FK_ModelingResult_ModelingTask" FromRole="ModelingTask" ToRole="ModelingResult" />
+          <NavigationProperty Name="ModelingTestInputs" Relationship="Self.FK_ModelingTestInput_ModelingTask" FromRole="ModelingTask" ToRole="ModelingTestInput" />
+        </EntityType>
+        <EntityType Name="ModelingTestInput">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="input_modal" Type="Binary" MaxLength="3000" FixedLength="true" Nullable="false" />
+          <Property Name="output_modal" Type="Binary" MaxLength="3000" FixedLength="true" />
+          <Property Name="task_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ModelingTask" Relationship="Self.FK_ModelingTestInput_ModelingTask" FromRole="ModelingTestInput" ToRole="ModelingTask" />
+        </EntityType>
+        <EntityType Name="SourceModal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Modal" Type="Binary" MaxLength="3000" FixedLength="true" />
+          <NavigationProperty Name="ModelingResults" Relationship="Self.FK_ModelingResult_SourceModal" FromRole="SourceModal" ToRole="ModelingResult" />
+        </EntityType>
+        <EntityType Name="StudyGroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="course" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_StudyGroup" FromRole="StudyGroup" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="group_id" Type="Int32" />
+          <NavigationProperty Name="ModelingResults" Relationship="Self.FK_ModelingResult_User" FromRole="User" ToRole="ModelingResult" />
+          <NavigationProperty Name="StudyGroup" Relationship="Self.FK_User_StudyGroup" FromRole="User" ToRole="StudyGroup" />
+        </EntityType>
+        <Association Name="FK_ModelingResult_ModelingTask">
+          <End Role="ModelingTask" Type="Self.ModelingTask" Multiplicity="1" />
+          <End Role="ModelingResult" Type="Self.ModelingResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModelingTask">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ModelingResult">
+              <PropertyRef Name="modeling_task_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModelingResult_SourceModal">
+          <End Role="SourceModal" Type="Self.SourceModal" Multiplicity="1" />
+          <End Role="ModelingResult" Type="Self.ModelingResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SourceModal">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ModelingResult">
+              <PropertyRef Name="source_modal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModelingResult_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ModelingResult" Type="Self.ModelingResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ModelingResult">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModelingTestInput_ModelingTask">
+          <End Role="ModelingTask" Type="Self.ModelingTask" Multiplicity="1" />
+          <End Role="ModelingTestInput" Type="Self.ModelingTestInput" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModelingTask">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ModelingTestInput">
+              <PropertyRef Name="task_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_StudyGroup">
+          <End Role="StudyGroup" Type="Self.StudyGroup" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyGroup">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Arc_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Elements" EntityType="Self.Element" />
+          <EntitySet Name="ModelingResults" EntityType="Self.ModelingResult" />
+          <EntitySet Name="ModelingTasks" EntityType="Self.ModelingTask" />
+          <EntitySet Name="ModelingTestInputs" EntityType="Self.ModelingTestInput" />
+          <EntitySet Name="SourceModals" EntityType="Self.SourceModal" />
+          <EntitySet Name="StudyGroups" EntityType="Self.StudyGroup" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_ModelingResult_ModelingTask" Association="Self.FK_ModelingResult_ModelingTask">
+            <End Role="ModelingTask" EntitySet="ModelingTasks" />
+            <End Role="ModelingResult" EntitySet="ModelingResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModelingResult_SourceModal" Association="Self.FK_ModelingResult_SourceModal">
+            <End Role="SourceModal" EntitySet="SourceModals" />
+            <End Role="ModelingResult" EntitySet="ModelingResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModelingResult_User" Association="Self.FK_ModelingResult_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ModelingResult" EntitySet="ModelingResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModelingTestInput_ModelingTask" Association="Self.FK_ModelingTestInput_ModelingTask">
+            <End Role="ModelingTask" EntitySet="ModelingTasks" />
+            <End Role="ModelingTestInput" EntitySet="ModelingTestInputs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_StudyGroup" Association="Self.FK_User_StudyGroup">
+            <End Role="StudyGroup" EntitySet="StudyGroups" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Arc_DBModelStoreContainer" CdmEntityContainer="Arc_DBEntities">
+          <EntitySetMapping Name="Elements">
+            <EntityTypeMapping TypeName="Arc_DBModel.Element">
+              <MappingFragment StoreEntitySet="Elements">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="body" ColumnName="body" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModelingResults">
+            <EntityTypeMapping TypeName="Arc_DBModel.ModelingResult">
+              <MappingFragment StoreEntitySet="ModelingResult">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="result_description" ColumnName="result_description" />
+                <ScalarProperty Name="source_modal_id" ColumnName="source_modal_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="modeling_task_id" ColumnName="modeling_task_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModelingTasks">
+            <EntityTypeMapping TypeName="Arc_DBModel.ModelingTask">
+              <MappingFragment StoreEntitySet="ModelingTask">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="first_part" ColumnName="first_part" />
+                <ScalarProperty Name="middle_part" ColumnName="middle_part" />
+                <ScalarProperty Name="last_part" ColumnName="last_part" />
+                <ScalarProperty Name="task_complex" ColumnName="task_complex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModelingTestInputs">
+            <EntityTypeMapping TypeName="Arc_DBModel.ModelingTestInput">
+              <MappingFragment StoreEntitySet="ModelingTestInput">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="input_modal" ColumnName="input_modal" />
+                <ScalarProperty Name="output_modal" ColumnName="output_modal" />
+                <ScalarProperty Name="task_id" ColumnName="task_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SourceModals">
+            <EntityTypeMapping TypeName="Arc_DBModel.SourceModal">
+              <MappingFragment StoreEntitySet="SourceModal">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Modal" ColumnName="Modal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudyGroups">
+            <EntityTypeMapping TypeName="Arc_DBModel.StudyGroup">
+              <MappingFragment StoreEntitySet="StudyGroup">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="course" ColumnName="course" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Arc_DBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
