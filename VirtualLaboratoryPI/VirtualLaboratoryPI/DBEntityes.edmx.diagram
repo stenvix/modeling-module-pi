@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4da0fd1ba58c496ba9fb762baef49fe6" Name="Diagram1">
+        <EntityTypeShape EntityType="Arc_DBModel.Element" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arc_DBModel.ModelingResult" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arc_DBModel.ModelingTask" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arc_DBModel.ModelingTestInput" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arc_DBModel.SourceModal" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arc_DBModel.StudyGroup" Width="1.5" PointX="1.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arc_DBModel.User" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="Arc_DBModel.FK_ModelingResult_ModelingTask" ManuallyRouted="false" />
+        <AssociationConnector Association="Arc_DBModel.FK_ModelingResult_SourceModal" ManuallyRouted="false" />
+        <AssociationConnector Association="Arc_DBModel.FK_ModelingResult_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Arc_DBModel.FK_ModelingTestInput_ModelingTask" ManuallyRouted="false" />
+        <AssociationConnector Association="Arc_DBModel.FK_User_StudyGroup" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
