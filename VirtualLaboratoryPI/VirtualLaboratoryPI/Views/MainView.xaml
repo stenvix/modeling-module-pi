@@ -32,6 +32,8 @@
             <ToggleButton x:Name="blockButton" Content="Блок"  Checked="toggleButton_checked"/>
             <ToggleButton x:Name="pointButton" Content="Точка"  Checked="toggleButton_checked"/>
             <ToggleButton x:Name="rhombButton" Content="Ромб"  Checked="toggleButton_checked"/>
+            <ToggleButton x:Name="saveButton" Content="Зберегти"  Checked="toggleButton_checked"/>
+            <ToggleButton x:Name="loadButton" Content="Завантажити"  Checked="toggleButton_checked"/>
         </StackPanel>
         <controls:ZoomControl x:Name="zoomctrl" Grid.ColumnSpan="4" Grid.Column="1" Margin="10,10,10,9.667" Grid.RowSpan="4" BorderThickness="1" BorderBrush="#FF382D2D">
             <models:GraphAreaExample x:Name="Area">

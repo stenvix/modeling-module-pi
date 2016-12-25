@@ -7,7 +7,10 @@ using GraphX.PCL.Common.Models;
 using GraphX.PCL.Logic.Algorithms.LayoutAlgorithms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -311,6 +314,23 @@ namespace VirtualLaboratoryPI.ViewModels
         {
             //remove vertex and all adjacent edges from layout and data graph
             Area.RemoveVertexAndEdges(vc.Vertex as VertexBase);
+        }
+
+        public void SerializeGraph()
+        {
+            MemoryStream memStream = new MemoryStream();
+            StreamWriter streamWriter = new StreamWriter(memStream);
+            streamWriter.Write(Area);
+            new Arc_DBEntities().SourceModals.Add(new SourceModal() {Modal = memStream.GetBuffer()});
+        }
+
+        public GraphAreaExample DeserializeGraph(int modalId)
+        {
+            MemoryStream memStream = new MemoryStream();
+            BinaryReader binaryReader = new BinaryReader(memStream);
+            binaryReader.Read(new Arc_DBEntities().SourceModals.Find(new SourceModal() {id = modalId}).Modal, 0, new Arc_DBEntities().SourceModals.Find(new SourceModal() { id = modalId }).Modal.Length);
+            IFormatter formatter = new BinaryFormatter();
+            return formatter.Deserialize(memStream) as GraphAreaExample;
         }
       
     }
