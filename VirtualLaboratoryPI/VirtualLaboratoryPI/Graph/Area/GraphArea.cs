@@ -10,6 +10,7 @@ using VirtualLaboratoryPI.Graph.Data;
 
 namespace VirtualLaboratoryPI.Graph.Area
 {
+    [Serializable]
     public class GraphAreaExample : GraphArea<VertexBase, EdgeBase<VertexBase>, BidirectionalGraph<VertexBase, EdgeBase<VertexBase>>> {
         public GraphAreaExample() {
             ControlFactory = new ElementsFactory(this);

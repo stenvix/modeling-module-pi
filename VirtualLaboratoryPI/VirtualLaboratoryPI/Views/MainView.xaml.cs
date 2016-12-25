@@ -47,7 +47,6 @@ namespace VirtualLaboratoryPI
             //}
 
             InitializeComponent();
-
             ZoomControl.SetViewFinderVisibility(zoomctrl, Visibility.Visible);
 
             zoomctrl.ZoomToFill();
